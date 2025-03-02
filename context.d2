@@ -13,7 +13,7 @@ users: Users {
 }
 nva: NVA {
   link: layers.nva
-  style: service
+  class: service
 }
 cristin: Cristin {
   shape: cloud
@@ -23,5 +23,5 @@ users -> nva
 nva -> cristin
 
 layers: {
-  nva: @containers-nva
+  nva: {...@containers-nva}
 }
