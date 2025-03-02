@@ -1,0 +1,24 @@
+explain: |md
+  C0: This is the top layer, highest level of abstraction.
+| {
+  near: top-center
+}
+
+user: User {
+  shape: person
+}
+internal_system: Internal system
+external_system: External system
+
+level_zero: Our system {
+  link: layers.level_one
+}
+
+user -> level_zero: Uses
+user -> internal_system: Uses
+level_zero -> internal_system: Depends on
+level_zero -> external_system: Depends on
+
+layers: {
+  level_one: @layer-c1
+}
