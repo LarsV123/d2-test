@@ -1,0 +1,27 @@
+...@style
+
+explain: |md
+  # C4 - Context diagram
+  This is the top layer, highest level of abstraction.
+| {
+  near: top-center
+}
+
+users: Users {
+  shape: person
+  style.multiple: true
+}
+nva: NVA {
+  link: layers.nva
+  style: service
+}
+cristin: Cristin {
+  shape: cloud
+}
+
+users -> nva
+nva -> cristin
+
+layers: {
+  nva: @containers-nva
+}

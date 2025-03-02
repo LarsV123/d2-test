@@ -1,0 +1,94 @@
+...@style
+nva: nva {
+  pub_api: nva-publication-api {
+    class: service
+  }
+  nvi: nva-nvi
+  fe: Frontend {
+    class: service
+  }
+
+  persisted_resources: persisted-resources {
+    class: s3
+  }
+  nvi_candidates: nvi-candidates {
+    class: s3
+  }
+
+  report_api: data-report-api {
+    class: service
+  }
+
+  report_bucket: data-report-csv-export {
+    class: s3
+  }
+
+  nvi: {
+    class: service
+    link: layers.nvi
+    style.fill-pattern: none
+  }
+
+  cristin_service: nva-cristin-service {
+    class: [service; problem]
+  }
+
+  identity_service: nva-identity-service {
+    class: [service; problem]
+  }
+
+  customer_service: nva-customer-service {
+    class: [service; problem]
+  }
+
+  fe -> pub_api: Create/update publication metadata
+  fe -> nvi: Update NVI metadata
+  pub_api -> persisted_resources: "Store publication metadata (JSON)"
+
+  nvi -> persisted_resources: Get publication metadata
+  nvi -> nvi_candidates: Store NVI candidate metadata (JSON)
+
+  report_api -> persisted_resources: Get publication metadata
+  report_api -> nvi_candidates: Get NVI candidate metadata
+  report_api -> report_bucket: Store summary (CSV)
+  nvi -> cristin_service: Depends on?
+  nvi -> identity_service: Depends on?
+  nvi -> customer_service: Depends on?
+}
+
+user: Users {
+  shape: person
+  style.multiple: true
+}
+user -> nva.fe: Interacts with
+
+import_sources: Import sources {
+  shape: cloud
+}
+nva.pub_api -> import_sources: Get data
+
+dap: Dataanalyseplattformen {
+  shape: image
+  icon: https://icons.terrastruct.com/azure/Analytics%20Service%20Color/Azure%20Databricks.svg
+}
+
+duct: DUCT {
+  shape: cloud
+}
+
+eva: Eva {
+  shape: person
+}
+
+cristin: {
+  shape: cloud
+}
+
+eva -> duct -> dap -> nva.report_bucket
+nva.cristin_service -> cristin: Depends on
+
+layers: {
+  nvi: {
+    ...@data_flow/nvi
+  }
+}

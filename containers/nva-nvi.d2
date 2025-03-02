@@ -1,0 +1,24 @@
+evaluation: Evaluate {
+  shape: step
+  link: layers.evaluation
+}
+api: REST API {
+  class: dot
+}
+s3: S3 events {
+  class: dot
+}
+rest: REST handlers
+opensearch: Update search index {
+  shape: step
+}
+ddb: DynamoDB {
+  class: ddb
+}
+
+s3 -> evaluation
+evaluation -> ddb: Persist
+ddb -> opensearch: Update
+api -> rest
+rest -> ddb: CRUD
+rest -> opensearch: Read
