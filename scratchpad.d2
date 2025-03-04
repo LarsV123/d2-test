@@ -1,0 +1,130 @@
+...@style
+
+nva: "NVA" {
+  class: service
+}
+admin: "Institusjonsadministrator" {
+  class: user
+}
+anonym: "Anonym bruker: ikke innlogget" {
+  class: user
+}
+bruker: "Bruker: innlogget; ingen kunde" {
+  class: user
+}
+doikurator: "DOI kurator" {
+  class: user
+}
+filkurator: "Fil kurator" {
+  class: user
+}
+supportkurator: "Supportkurator" {
+  class: user
+}
+registrator: "Registrator" {
+  class: user
+}
+redaktor: "Redaktør" {
+  class: user
+}
+nvaadmin: "Applikasjonsadministrator" {
+  class: user
+}
+internalimportkurator: "Intern import kurator" {
+  class: user
+}
+studentoppgavekurator: "Studentoppgavekurator" {
+  class: user
+}
+studentoppgaveembargokurator: "Studentoppgave embargo kurator" {
+  class: user
+}
+nvikurator: "NVI kurator" {
+  class: user
+}
+
+apibruker: "API user" {
+  class: service
+}
+dap: "Analyseplattformen" {
+  class: service
+}
+oria: "ORIA" {
+  class: service
+}
+eurocris: "EuroCris" {
+  class: service
+}
+feide: "Feide" {
+  class: service
+}
+dataporten: "Dataporten" {
+  class: service
+}
+orcid: "ORCID" {
+  class: service
+}
+cristin: "CRIStin" {
+  class: service
+}
+crossref: "CrossRef" {
+  class: service
+}
+scopus: "SCOPUS" {
+  class: service
+}
+nfr: "Norges Forskningsråd finansiering API" {
+  class: service
+}
+handle: "Hdl.NET" {
+  class: service
+}
+kanalregister: "HKDIR DBH kanalregister" {
+  class: service
+}
+datacite: "DataCite" {
+  class: service
+}
+rek: "Regional Etisk Komitè" {
+  class: service
+}
+ctis: "CTIS" {
+  class: service
+}
+google: "Google Search" {
+  class: service
+}
+googleScholar: "Google Scholar" {
+  class: service
+}
+
+google -> nva: "skraper data fra [HTTP/JSON]"
+googleScholar -> nva: "skraper data fra [HTTP/HTML]"
+ctis -> nva: "implementeres senere; synker helseprosjekter med [HTTP/JSON]"
+rek -> cristin: "synker helseprosjekter med [HTTP/JSON]"
+nva -> datacite: "leser og skriver publiseringsmetadata til/fra, oppretter DOI i [HTTP/JSON]"
+nva -> kanalregister: "leser og skriver til/fra [HTTP/JSON]"
+nva -> handle: "henter persistente identifikatorer fra [HTTP]"
+nva -> nfr: "henter finansieringsinformasjon fra [HTTP/JSON]"
+nva -> feide: "bruker til innlogging [HTTP/OAUTH2]"
+nva -> dataporten: "bruker til innlogging [HTTP/OAUTH2]"
+nva -> cristin: "henter tilknytninger om person, organisasjon, prosjekt, biobanker, finansiering fra [HTTP/JSON]"
+nva -> orcid: "henter brukerpolett fra [HTTP/JSON]"
+nva -> crossref: "henter publikasjonsmetadata fra [HTTP/JSON]"
+scopus -> nva: "sender publiseringsmetadata til [SMTP]"
+filkurator -> nva: "som registrator, redigere utkast og publiserte resultater på vegne av bruker/publisere filer"
+redaktor -> nva: "som registrator, redigere prosjekter, gi kuratorroller, sette ansvarsområder, publiseringsflyt, kategorier, vokabularer, avpublisere og slette resultater"
+admin -> nva: "som registrator, administrere person og bruker"
+nvaadmin -> nva: "som registrator, administrere kunderelasjoner og starte rapporteringsperioder"
+anonym -> nva: "søker/leser/laster ned innhold"
+bruker -> nva: "kan logge inn/oppdatere profil"
+supportkurator -> nva: "som registrator, svare og stenge supportforespørsler/redigere utkast og publiserte resultater"
+studentoppgavekurator -> nva: "som filkurator, registrere og publisere studentoppgaver"
+doikurator -> nva: "som registrator, godkjenne DOI-forespørsler"
+internalimportkurator -> nva: "som registrator, importerer resultater fra eksterne kilder"
+studentoppgaveembargokurator -> nva: "ser studentoppgaver med embargo og setter embargo"
+nvikurator -> nva: "som registrator, godkjenne NVI-kandidater og samarbeide med andre NVI-kuratorer"
+apibruker -> nva: "leser data fra [HTTP/JSON]"
+dap -> nva: "leser data fra [CSV filer]"
+oria -> nva: "leser data fra [HTTP/OAI-PMH XML]"
+eurocris -> nva: "leser data fra [HTTP/OAI-PMH XML]"

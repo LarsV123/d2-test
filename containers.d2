@@ -1,0 +1,75 @@
+...@style
+nva: nva {
+  nvi: nva-nvi {
+    class: service
+  }
+  pub_api: nva-publication-api {
+    class: service
+  }
+  report_api: nva-data-report-api {
+    class: service
+  }
+  fe: nva-frontend {
+    class: service
+  }
+  report_api: data-report-api {
+    class: service
+  }
+
+  cristin_service: nva-cristin-service {
+    class: [service; problem]
+  }
+  identity_service: nva-identity-service {
+    class: [service; problem]
+  }
+  customer_service: nva-customer-service {
+    class: [service; problem]
+  }
+
+  fe -> pub_api: Create/update publication metadata
+  fe -> nvi: Update NVI metadata
+  nvi -> pub_api: Get publication metadata
+  report_api -> pub_api: Get publication metadata
+  report_api -> nvi: Get NVI candidate metadata
+
+  nvi -> cristin_service: Depends on?
+  nvi -> identity_service: Depends on?
+  nvi -> customer_service: Depends on?
+}
+
+user: Users {
+  shape: person
+  style.multiple: true
+}
+user -> nva.fe: Interacts with
+
+import_sources: Import sources {
+  shape: cloud
+}
+nva.pub_api -> import_sources: Get data
+
+dap: Dataanalyseplattformen {
+  shape: image
+  icon: https://icons.terrastruct.com/azure/Analytics%20Service%20Color/Azure%20Databricks.svg
+}
+
+duct: DUCT {
+  shape: cloud
+}
+
+eva: Eva {
+  shape: person
+}
+
+cristin: {
+  shape: cloud
+}
+
+eva -> duct -> dap -> nva.report_api
+nva.cristin_service -> cristin: Depends on
+
+layers: {
+  nvi: {
+    ...@nva-nvi/context
+  }
+}
